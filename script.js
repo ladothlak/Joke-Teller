@@ -43,6 +43,13 @@ async function getJoke() {
             joke = data.joke;
         }
 
+        if (joke.length >= 300) {
+            jokeText.classList.add('long-joke');
+        }
+        else {
+            jokeText.classList.remove('long-joke');
+        }
+
     } catch(error) {
         //Could not get a joke :(
         console.log('No joke found', error);
