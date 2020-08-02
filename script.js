@@ -1,5 +1,7 @@
 const button = document.getElementById('button');
-const audio = document.getElementById('audio');
+const audio = document.getElementById('audioElement');
+const jokeText = document.getElementById('joketext');
+const twitterBtn = document.getElementById('twitter-button');
 
 // URL to the Joke API
 const jokeUrl = 'https://sv443.net/jokeapi/v2/joke/Programming?blacklistFlags=racist,sexist'
@@ -55,8 +57,17 @@ async function prepJoke() {
     toggleButton();
     let joke = await getJoke();
     speak(joke);
+    jokeText.textContent=joke;
+    twitterBtn.hidden = false;
+}
+
+function tweetJoke() {
+    const joke = jokeText.textContent;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${joke}`;
+    window.open(twitterUrl, '_blank');
 }
 
 // Event listeners
 button.addEventListener('click', prepJoke);
+twitterBtn.addEventListener('click', tweetJoke);
 audioElement.addEventListener('ended', toggleButton);
